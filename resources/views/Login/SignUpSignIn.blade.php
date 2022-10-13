@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Sign Up</title>
+    <title>Sign In</title>
     <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,900&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -31,11 +31,11 @@
 
                         <div class="form-group mb-3">
                             <label class="label" for="name">Email</label>
-                            <input id="SignInEmail" type="email" name="email" class="form-control" placeholder="Email">
+                            <input id="SignInEmail" type="email" name="email" value="admin@gmail.com" class="form-control" placeholder="Email">
                         </div>
                         <div class="form-group mb-3">
                             <label class="label" for="password">Password</label>
-                            <input id="SignInPass" type="password" name="password" class="form-control" placeholder="Password">
+                            <input id="SignInPass" type="password" name="password" value="admin1234" class="form-control" placeholder="Password">
                         </div>
                         <div class="form-group">
                             <button id="SignInBtn" type="button" class="form-control btn btn-primary submit px-3">Sign In</button>
