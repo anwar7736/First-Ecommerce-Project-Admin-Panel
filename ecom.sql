@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.9.7
+-- version 5.0.1
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost:3306
--- Generation Time: Oct 13, 2022 at 08:38 PM
--- Server version: 10.3.35-MariaDB
--- PHP Version: 7.4.30
+-- Host: 127.0.0.1
+-- Generation Time: Apr 15, 2023 at 05:03 AM
+-- Server version: 10.4.22-MariaDB
+-- PHP Version: 7.4.1
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -19,7 +19,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `coderanwar_ecom`
+-- Database: `ecom`
 --
 
 -- --------------------------------------------------------
@@ -243,13 +243,6 @@ CREATE TABLE `fav_list` (
   `product_image` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
---
--- Dumping data for table `fav_list`
---
-
-INSERT INTO `fav_list` (`id`, `user_id`, `product_code`, `product_name`, `product_price`, `product_image`) VALUES
-(5, '22', 'P1017', 'Vivo Y50', '19000', 'https://ecom-admin.coderanwar.online/storage/app/public/Vivo-Y50-Bangladesh.jpg');
-
 -- --------------------------------------------------------
 
 --
@@ -284,7 +277,10 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (47, '2021_07_02_043508_confirm_order_table', 19),
 (48, '2021_08_01_153542_email_otp_verification', 20),
 (49, '2020_10_25_213907_admin_table', 21),
-(50, '2020_10_25_214208_home_seo_table', 22);
+(50, '2020_10_25_214208_home_seo_table', 22),
+(51, '2023_04_14_183657_create_orders_table', 23),
+(52, '2023_04_14_183939_create_order_lines_table', 24),
+(53, '2023_04_14_184013_create_order_payments_table', 24);
 
 -- --------------------------------------------------------
 
@@ -340,6 +336,100 @@ INSERT INTO `notification_info` (`id`, `notification_id`, `user_id`, `status`) V
 (27, '6', '1', 'unread'),
 (33, '7', '1', 'unread'),
 (39, '8', '1', 'unread');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `orders`
+--
+
+CREATE TABLE `orders` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `user_id` bigint(20) UNSIGNED NOT NULL,
+  `invoice_no` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `phone` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `address` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `total_amount` decimal(16,2) NOT NULL,
+  `total_discount` decimal(16,2) NOT NULL,
+  `delivery_charge` decimal(16,2) NOT NULL,
+  `final_amount` decimal(16,2) NOT NULL,
+  `payment_method` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `payment_status` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT 'unpaid',
+  `status` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT 'pending',
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `orders`
+--
+
+INSERT INTO `orders` (`id`, `user_id`, `invoice_no`, `name`, `phone`, `address`, `total_amount`, `total_discount`, `delivery_charge`, `final_amount`, `payment_method`, `payment_status`, `status`, `created_at`, `updated_at`) VALUES
+(5, 22, '12566621', 'Md Anwar Hossain', '01794030592', 'Mohammadpur, Dhaka-1207', '1411070.00', '0.00', '150.00', '1411220.00', 'cash', 'unpaid', 'pending', '2023-04-14 15:43:49', '2023-04-14 15:43:49'),
+(6, 22, '27983574', 'Md Anwar Hossain', '01795700838', 'Mohammadpur, Dhaka-1207', '459000.00', '0.00', '80.00', '459080.00', 'cash', 'unpaid', 'pending', '2023-04-14 15:46:15', '2023-04-14 15:46:15'),
+(7, 22, '90831045', 'Md Anwar Hossain', '01688182028', 'Mohammadpur', '319950.00', '0.00', '150.00', '320100.00', 'bkash', 'paid', 'pending', '2023-04-14 15:48:01', '2023-04-14 15:48:01'),
+(8, 22, '77395037', 'Anwar', '01998839860', 'Mohammadpur', '71100.00', '0.00', '80.00', '71180.00', 'cash', 'unpaid', 'pending', '2023-04-14 16:39:07', '2023-04-14 16:39:07'),
+(9, 22, '15327880', 'Md Anwar Hossain', '01794030592', 'Mohammadpur, Dhaka', '35550.00', '0.00', '80.00', '35630.00', 'cash', 'unpaid', 'pending', '2023-04-14 20:34:05', '2023-04-14 20:34:05');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `order_lines`
+--
+
+CREATE TABLE `order_lines` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `order_id` bigint(20) UNSIGNED NOT NULL,
+  `productlist_id` bigint(20) UNSIGNED NOT NULL,
+  `price` decimal(16,2) NOT NULL,
+  `size` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `color` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `quantity` decimal(8,2) NOT NULL,
+  `discount` decimal(8,2) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `order_lines`
+--
+
+INSERT INTO `order_lines` (`id`, `order_id`, `productlist_id`, `price`, `size`, `color`, `quantity`, `discount`, `created_at`, `updated_at`) VALUES
+(4, 5, 2, '73000.00', '', '', '2.00', '0.00', '2023-04-14 15:43:49', '2023-04-14 15:43:49'),
+(5, 5, 11, '91690.00', '', '', '3.00', '0.00', '2023-04-14 15:43:49', '2023-04-14 15:43:49'),
+(6, 5, 13, '165000.00', '', '', '6.00', '0.00', '2023-04-14 15:43:49', '2023-04-14 15:43:49'),
+(7, 6, 2, '73000.00', '', '', '3.00', '0.00', '2023-04-14 15:46:15', '2023-04-14 15:46:15'),
+(8, 6, 6, '60000.00', '', '', '4.00', '0.00', '2023-04-14 15:46:15', '2023-04-14 15:46:15'),
+(9, 7, 3, '35550.00', '', '', '10.00', '0.00', '2023-04-14 15:48:01', '2023-04-14 15:48:01'),
+(10, 8, 3, '35550.00', '', '', '1.00', '0.00', '2023-04-14 16:39:07', '2023-04-14 16:39:07'),
+(11, 9, 3, '35550.00', '', '', '1.00', '0.00', '2023-04-14 20:34:05', '2023-04-14 20:34:05');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `order_payments`
+--
+
+CREATE TABLE `order_payments` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `user_id` bigint(20) UNSIGNED NOT NULL,
+  `order_id` bigint(20) UNSIGNED NOT NULL,
+  `amount` decimal(8,2) NOT NULL,
+  `transaction_id` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `payment_id` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `currency` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT 'BDT',
+  `status` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT 'success',
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `order_payments`
+--
+
+INSERT INTO `order_payments` (`id`, `user_id`, `order_id`, `amount`, `transaction_id`, `payment_id`, `currency`, `status`, `created_at`, `updated_at`) VALUES
+(1, 22, 7, '320100.00', 'DFD231256DF', 'AFE1254DF', 'BDT', 'success', '2023-04-15 00:36:48', '2023-04-15 00:36:50');
 
 -- --------------------------------------------------------
 
@@ -450,7 +540,8 @@ CREATE TABLE `review_list` (
 --
 
 INSERT INTO `review_list` (`id`, `reviewer_id`, `product_code`, `reviewer_photo`, `reviewer_name`, `reviewer_rating`, `reviewer_comments`) VALUES
-(2, 22, 'P1010', 'https://ecom-admin.coderanwar.online/storage/app/public/BUcZeQnvSMd1OLWIRCQRTOeqMZ2aj26ileKZZPzm.jpg', 'Md Anwar Hossain', '3', 'Good');
+(2, 22, 'P1010', 'https://ecom-admin.coderanwar.online/storage/app/public/BUcZeQnvSMd1OLWIRCQRTOeqMZ2aj26ileKZZPzm.jpg', 'Md Anwar Hossain', '3', 'Good'),
+(3, 22, 'undefined', 'http://127.0.0.1:8000/storage/BWVRGkjIo9JOJrtokGE3eRve7bfzMYc2aCkqr6Bp.jpg', 'Md Anwar Hossain', '2', 'Good product');
 
 -- --------------------------------------------------------
 
@@ -619,7 +710,7 @@ INSERT INTO `users` (`id`, `fullname`, `username`, `email`, `phone`, `photo`, `p
 (8, 'uttam toni', 'uttam', 'uttam@gmail.com', '01919486004', 'https://ecom-admin.coderanwar.online/storage/app/public/37fT2Q7MZ2PNbQBjidqER7lc3m69UGLTvzAzB1jo.jpg', '$2y$10$ja7ISADOHgW7PI2PPySczeKmU0bznh3.hcGKjNXhxs4iAZAVfSIju'),
 (9, 'uttamm', 'uttamm', 'uttam1@gmail.com', '01919486006', 'https://ecom-admin.coderanwar.online/storage/app/public/nWjLamxfzi9KpMcx8gADa89EAS3KNtrPc9bng0pl.jpg', '$2y$10$eEXVbzqeqlTI8SYDmoct8uEAcBoHr80jPQ6knjxdoCsrUuAx6vjUy'),
 (14, 'shahin hosen', 'shahinhosen', 'shahinhosen@protonmail.com', '01843506567', 'https://ecom-admin.coderanwar.online/storage/app/public/h6hBqlIhbCxxLLI8IOzoY9Z0fK1SyFdOa6kr2EcZ.png', '$2y$10$EQpFB0VGNMCzbEvdFFb5SuWPun9u8YvDgZntv18GznC3UZfy/crNS'),
-(22, 'Md. Anwar Hossain', 'anwar7736', 'anwarhossain7736@gmail.com', '01794030592', 'https://ecom-admin.coderanwar.online/storage/app/public/mSQS5X5biBynTuR4micmMIFLNoJGcvFzZTguDQIj.jpg', '$2y$10$5kHEQDCuMVhbihhq3FG4eeNhpi8D.O/1tDTmtMQ1nyo.OMN/KBzta'),
+(22, 'Md. Anwar Hossain', 'anwar7736', 'anwarhossain7736@gmail.com', '01794030592', 'http://127.0.0.1:8000/storage/BWVRGkjIo9JOJrtokGE3eRve7bfzMYc2aCkqr6Bp.jpg', '$2y$10$5kHEQDCuMVhbihhq3FG4eeNhpi8D.O/1tDTmtMQ1nyo.OMN/KBzta'),
 (23, 'Md Shajahan Shek', 'Shajahan', 'mdshahjahansheikh1995@gmail.com', '01745414153', 'https://ecom-admin.coderanwar.online/storage/app/public/O6ZYAxXojfMixJ0EWaH7Sf6KVRl2Vq9bk4tNtB85.jpg', '$2y$10$fRHgnN89EKXkeXFGISSHIev9SyQrX3MU9kpkDNqt4c3WbzUBCbn5G'),
 (24, 'Md Sujon Mollah', 'sujon1234', 'sujon1234@gmail.com', '01795700838', 'https://ecom-admin.coderanwar.online/storage/app/public/WK51T57AHivYLJRTER3NWLdPhR6GXDYMALVlPluM.jpg', '$2y$10$fSEuRyVCQ0vIjBVk69.R2.PYO4AkwiPAuEAWGdP9ynGmblDR4AU4.'),
 (25, 'Pritom', 'Rana', 'mohapatropritom@gmail.com', '01676682514', 'https://ecom-admin.coderanwar.online/storage/app/public/QsM3IKH8b0CtTMwAGwlyhYSLHDJaqV82JMPm1zBS.jpg', '$2y$10$/Jcv27BtbdVE7D5g6ZUABeKVmadi7NFGWeHJANPb8.6ojKj3UPOFy');
@@ -664,7 +755,7 @@ INSERT INTO `visitor` (`id`, `ip_address`, `visit_time`, `visit_date`) VALUES
 (20, '37.111.217.176', '11:48:48am', '26-07-2021'),
 (21, '37.111.219.152', '04:46:03pm', '26-07-2021'),
 (22, '116.58.205.240', '06:19:25pm', '27-07-2021'),
-(23, '127.0.0.1', '09:36:16pm', '11-08-2021'),
+(23, '127.0.0.1', '09:00:00am', '15-04-2023'),
 (24, '103.151.170.250', '12:16:04pm', '02-08-2021'),
 (25, '103.159.188.152', '12:22:21pm', '02-08-2021'),
 (26, '103.145.74.148', '09:42:12pm', '02-08-2021'),
@@ -749,6 +840,29 @@ ALTER TABLE `notification`
 --
 ALTER TABLE `notification_info`
   ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `orders`
+--
+ALTER TABLE `orders`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `orders_user_id_foreign` (`user_id`);
+
+--
+-- Indexes for table `order_lines`
+--
+ALTER TABLE `order_lines`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `order_lines_order_id_foreign` (`order_id`),
+  ADD KEY `order_lines_productlist_id_foreign` (`productlist_id`);
+
+--
+-- Indexes for table `order_payments`
+--
+ALTER TABLE `order_payments`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `order_payments_user_id_foreign` (`user_id`),
+  ADD KEY `order_payments_order_id_foreign` (`order_id`);
 
 --
 -- Indexes for table `productlist`
@@ -854,13 +968,13 @@ ALTER TABLE `email_otp_verification`
 -- AUTO_INCREMENT for table `fav_list`
 --
 ALTER TABLE `fav_list`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=54;
 
 --
 -- AUTO_INCREMENT for table `notification`
@@ -875,10 +989,28 @@ ALTER TABLE `notification_info`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
 
 --
+-- AUTO_INCREMENT for table `orders`
+--
+ALTER TABLE `orders`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+
+--
+-- AUTO_INCREMENT for table `order_lines`
+--
+ALTER TABLE `order_lines`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+
+--
+-- AUTO_INCREMENT for table `order_payments`
+--
+ALTER TABLE `order_payments`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
 -- AUTO_INCREMENT for table `productlist`
 --
 ALTER TABLE `productlist`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT for table `product_details`
@@ -890,7 +1022,7 @@ ALTER TABLE `product_details`
 -- AUTO_INCREMENT for table `review_list`
 --
 ALTER TABLE `review_list`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `siteinfo`
@@ -933,6 +1065,30 @@ ALTER TABLE `users`
 --
 ALTER TABLE `visitor`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=44;
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `orders`
+--
+ALTER TABLE `orders`
+  ADD CONSTRAINT `orders_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `order_lines`
+--
+ALTER TABLE `order_lines`
+  ADD CONSTRAINT `order_lines_order_id_foreign` FOREIGN KEY (`order_id`) REFERENCES `orders` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `order_lines_productlist_id_foreign` FOREIGN KEY (`productlist_id`) REFERENCES `productlist` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `order_payments`
+--
+ALTER TABLE `order_payments`
+  ADD CONSTRAINT `order_payments_order_id_foreign` FOREIGN KEY (`order_id`) REFERENCES `orders` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `order_payments_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

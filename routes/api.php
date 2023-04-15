@@ -20,6 +20,12 @@ use App\Http\Controllers\FavouriteController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ConfirmOrderController;
+use App\Http\Controllers\OrderController;
+use App\Http\Controllers\OrderPaymentController;
+
+// header('Access-Control-Allow-Origin: *');
+// header('Access-Control-Allow-Methods: *');
+// header('Access-Control-Allow-Headers: *');
 
 Route::get('/GetVisitorDetails', [VisitorController::class, 'GetVisitorDetails']);
 Route::post('/SendContactDetails', [ContactController::class, 'SendContactDetails']);
@@ -59,8 +65,12 @@ Route::post('/ItemQtyIncrease', [CartController::class, 'ItemQtyIncrease']);
 Route::post('/ItemQtyDecrease', [CartController::class, 'ItemQtyDecrease']);
 Route::get('/GetUserProfile/{user_id}', [ProfileController::class, 'GetUserProfile']);
 Route::post('/UpdateProfile', [ProfileController::class, 'UpdateProfile']);
-Route::post('/PlaceUserOrder', [ConfirmOrderController::class, 'PlaceUserOrder']);
-Route::get('/GetOrderDetails/{user_id}', [ConfirmOrderController::class, 'GetOrderDetails']);
+// Route::post('/PlaceUserOrder', [ConfirmOrderController::class, 'PlaceUserOrder']);
+// Route::get('/GetOrderDetails/{user_id}', [ConfirmOrderController::class, 'GetOrderDetails']);
+Route::post('/PlaceUserOrder', [OrderController::class, 'checkout']);
+Route::get('/GetOrderList/{user_id}', [OrderController::class, 'orderList']);
+Route::get('/GetOrderDetails/{id}', [OrderController::class, 'show']);
+Route::get('/GetPaymentList/{user_id}', [OrderPaymentController::class, 'paymentList']);
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();

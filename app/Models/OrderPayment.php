@@ -5,18 +5,18 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Order extends Model
+class OrderPayment extends Model
 {
     use HasFactory;
     protected $guarded = [];
+
     function user()
     {
         return $this->belongsTo(User::class);
     }    
     
-    function lines()
+    function order()
     {
-        return $this->hasMany(OrderLine::class);
+        return $this->belongsTo(Order::class);
     }
-
 }
