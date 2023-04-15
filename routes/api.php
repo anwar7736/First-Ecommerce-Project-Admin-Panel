@@ -70,6 +70,7 @@ Route::post('/UpdateProfile', [ProfileController::class, 'UpdateProfile']);
 Route::post('/PlaceUserOrder', [OrderController::class, 'checkout']);
 Route::get('/GetOrderList/{user_id}', [OrderController::class, 'orderList']);
 Route::get('/GetOrderDetails/{id}', [OrderController::class, 'show']);
+
 Route::get('/GetPaymentList/{user_id}', [OrderPaymentController::class, 'paymentList']);
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {

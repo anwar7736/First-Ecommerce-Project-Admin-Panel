@@ -85,8 +85,8 @@ class ProfileController extends Controller
 
             $photoPath = $photo->store('public');
             $photoName = explode('/', $photoPath)[1];
-            // $photoURL  = 'https://'.$_SERVER['HTTP_HOST'].'/storage/app/public/'.$photoName;
-            $photoURL  = 'http://'.$_SERVER['HTTP_HOST'].'/storage/'.$photoName;
+            $photoURL  = 'https://'.$_SERVER['HTTP_HOST'].'/storage/app/public/'.$photoName;
+            // $photoURL  = 'http://'.$_SERVER['HTTP_HOST'].'/storage/'.$photoName;
 
             $result = UserModel::where('id', $id)
                     ->update([

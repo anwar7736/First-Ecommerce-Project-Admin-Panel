@@ -137,7 +137,7 @@ class OrderController extends Controller
             }
 
             DB::commit();
-            return 1;
+            return $order->id;
         }
         catch(\Exception $e)
         {

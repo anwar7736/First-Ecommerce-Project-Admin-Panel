@@ -23,7 +23,9 @@ use App\Http\Controllers\SMSTestController;
 use App\Http\Controllers\SslCommerzPaymentController;
 use App\Http\Controllers\SubCategoryController;
 use App\Http\Controllers\VisitorListController;
+use App\Http\Controllers\CheckoutURLController;
 use Illuminate\Support\Facades\Route;
+
 
 Route::get('/', [HomeController::class,'HomePage'])->middleware('loginCheck');
 Route::get('/HomeSummary', [HomeController::class,'HomeSummary'])->middleware('loginCheck');
@@ -183,4 +185,20 @@ Route::post('/cancel', [SslCommerzPaymentController::class, 'cancel'])->middlewa
 
 Route::post('/ipn', [SslCommerzPaymentController::class, 'ipn'])->middleware('loginCheck');
 //SSLCOMMERZ END
+
+
+//Bkash Payment
+
+// User
+Route::get('/bkash/checkout-url/pay', [CheckoutURLController::class, 'pay'])->name('url-pay');
+Route::post('/bkash/checkout-url/create', [CheckoutURLController::class, 'create'])->name('url-create');
+Route::get('/bkash/checkout-url/callback', [CheckoutURLController::class, 'callback'])->name('url-callback');
+
+
+// Admin
+Route::get('/bkash/checkout-url/refund', [CheckoutURLController::class, 'getRefund'])->name('url-get-refund');
+Route::post('/bkash/checkout-url/refund', [CheckoutURLController::class, 'refund'])->name('url-refund');
+
+Route::get('/bkash/checkout-url/refund-status', [CheckoutURLController::class, 'getRefundStatus'])->name('url-get-refund-status');
+Route::post('/bkash/checkout-url/refund-status', [CheckoutURLController::class, 'refundStatus'])->name('url-refund-status');
 

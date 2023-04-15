@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Order;
 use App\Models\OrderPayment;
 use Illuminate\Http\Request;
 
@@ -81,6 +82,17 @@ class OrderPaymentController extends Controller
     public function destroy(OrderPayment $orderPayment)
     {
         //
+    }
+
+    public function bkash_payment()
+    {
+        $order = Order::find(request()->order_id);
+        dd($order);
+    }    
+
+    public function payment_status()
+    {
+        
     }
 
     public function paymentList($user_id)

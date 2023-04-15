@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 15, 2023 at 05:03 AM
+-- Generation Time: Apr 15, 2023 at 03:15 PM
 -- Server version: 10.4.22-MariaDB
 -- PHP Version: 7.4.1
 
@@ -370,7 +370,12 @@ INSERT INTO `orders` (`id`, `user_id`, `invoice_no`, `name`, `phone`, `address`,
 (6, 22, '27983574', 'Md Anwar Hossain', '01795700838', 'Mohammadpur, Dhaka-1207', '459000.00', '0.00', '80.00', '459080.00', 'cash', 'unpaid', 'pending', '2023-04-14 15:46:15', '2023-04-14 15:46:15'),
 (7, 22, '90831045', 'Md Anwar Hossain', '01688182028', 'Mohammadpur', '319950.00', '0.00', '150.00', '320100.00', 'bkash', 'paid', 'pending', '2023-04-14 15:48:01', '2023-04-14 15:48:01'),
 (8, 22, '77395037', 'Anwar', '01998839860', 'Mohammadpur', '71100.00', '0.00', '80.00', '71180.00', 'cash', 'unpaid', 'pending', '2023-04-14 16:39:07', '2023-04-14 16:39:07'),
-(9, 22, '15327880', 'Md Anwar Hossain', '01794030592', 'Mohammadpur, Dhaka', '35550.00', '0.00', '80.00', '35630.00', 'cash', 'unpaid', 'pending', '2023-04-14 20:34:05', '2023-04-14 20:34:05');
+(9, 22, '15327880', 'Md Anwar Hossain', '01794030592', 'Mohammadpur, Dhaka', '35550.00', '0.00', '80.00', '35630.00', 'cash', 'unpaid', 'pending', '2023-04-14 20:34:05', '2023-04-14 20:34:05'),
+(10, 22, '53813764', 'Md Anwar Hossain', '01794030592', 'Mohammadpur, Dhaka-1207', '167550.00', '0.00', '80.00', '167630.00', 'bkash', 'unpaid', 'pending', '2023-04-15 06:39:57', '2023-04-15 06:39:57'),
+(11, 22, '60716745', 'Md Anwar Hossain', '01794030592', 'Mohammadpur Bus Stand', '77000.00', '0.00', '0.00', '77000.00', 'bkash', 'paid', 'pending', '2023-04-15 06:56:45', '2023-04-15 06:58:49'),
+(12, 22, '68537318', 'Anwar', '01998839860', 'Mohammadpur', '35550.00', '0.00', '80.00', '35630.00', 'cash', 'unpaid', 'pending', '2023-04-15 07:04:47', '2023-04-15 07:04:47'),
+(13, 22, '49490851', 'Anwar', '01794030592', 'Mirpur-10', '35550.00', '0.00', '0.00', '35550.00', 'bkash', 'unpaid', 'pending', '2023-04-15 07:05:15', '2023-04-15 07:05:15'),
+(14, 22, '55515534', 'Md Anwar Hossain', '01794030592', 'Mohammapur', '350000.00', '0.00', '0.00', '350000.00', 'bkash', 'unpaid', 'pending', '2023-04-15 07:09:04', '2023-04-15 07:09:04');
 
 -- --------------------------------------------------------
 
@@ -403,7 +408,13 @@ INSERT INTO `order_lines` (`id`, `order_id`, `productlist_id`, `price`, `size`, 
 (8, 6, 6, '60000.00', '', '', '4.00', '0.00', '2023-04-14 15:46:15', '2023-04-14 15:46:15'),
 (9, 7, 3, '35550.00', '', '', '10.00', '0.00', '2023-04-14 15:48:01', '2023-04-14 15:48:01'),
 (10, 8, 3, '35550.00', '', '', '1.00', '0.00', '2023-04-14 16:39:07', '2023-04-14 16:39:07'),
-(11, 9, 3, '35550.00', '', '', '1.00', '0.00', '2023-04-14 20:34:05', '2023-04-14 20:34:05');
+(11, 9, 3, '35550.00', '', '', '1.00', '0.00', '2023-04-14 20:34:05', '2023-04-14 20:34:05'),
+(12, 10, 3, '35550.00', '', '', '2.00', '0.00', '2023-04-15 06:39:57', '2023-04-15 06:39:57'),
+(13, 10, 10, '132000.00', '', '', '2.00', '0.00', '2023-04-15 06:39:57', '2023-04-15 06:39:57'),
+(14, 11, 5, '38500.00', '', '', '2.00', '0.00', '2023-04-15 06:56:45', '2023-04-15 06:56:45'),
+(15, 12, 3, '35550.00', '', '', '1.00', '0.00', '2023-04-15 07:04:47', '2023-04-15 07:04:47'),
+(16, 13, 3, '35550.00', '', '', '1.00', '0.00', '2023-04-15 07:05:15', '2023-04-15 07:05:15'),
+(17, 14, 14, '350000.00', '', '', '1.00', '0.00', '2023-04-15 07:09:04', '2023-04-15 07:09:04');
 
 -- --------------------------------------------------------
 
@@ -429,7 +440,7 @@ CREATE TABLE `order_payments` (
 --
 
 INSERT INTO `order_payments` (`id`, `user_id`, `order_id`, `amount`, `transaction_id`, `payment_id`, `currency`, `status`, `created_at`, `updated_at`) VALUES
-(1, 22, 7, '320100.00', 'DFD231256DF', 'AFE1254DF', 'BDT', 'success', '2023-04-15 00:36:48', '2023-04-15 00:36:50');
+(2, 22, 11, '77000.00', 'TR0011VR1681563418360', 'TR0011VR1681563418360', 'BDT', 'success', '2023-04-15 06:58:49', '2023-04-15 06:58:49');
 
 -- --------------------------------------------------------
 
@@ -755,7 +766,7 @@ INSERT INTO `visitor` (`id`, `ip_address`, `visit_time`, `visit_date`) VALUES
 (20, '37.111.217.176', '11:48:48am', '26-07-2021'),
 (21, '37.111.219.152', '04:46:03pm', '26-07-2021'),
 (22, '116.58.205.240', '06:19:25pm', '27-07-2021'),
-(23, '127.0.0.1', '09:00:00am', '15-04-2023'),
+(23, '127.0.0.1', '07:14:03pm', '15-04-2023'),
 (24, '103.151.170.250', '12:16:04pm', '02-08-2021'),
 (25, '103.159.188.152', '12:22:21pm', '02-08-2021'),
 (26, '103.145.74.148', '09:42:12pm', '02-08-2021'),
@@ -968,7 +979,7 @@ ALTER TABLE `email_otp_verification`
 -- AUTO_INCREMENT for table `fav_list`
 --
 ALTER TABLE `fav_list`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `migrations`
@@ -992,19 +1003,19 @@ ALTER TABLE `notification_info`
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `order_lines`
 --
 ALTER TABLE `order_lines`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT for table `order_payments`
 --
 ALTER TABLE `order_payments`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `productlist`
